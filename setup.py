@@ -22,11 +22,11 @@ entry_points = {
         "idl_preprocessor = idl_preprocessor:main",
         "idl_scraper = idl_scraper:main",
     ],
-},
+}
 
 install_requires = [
     "impacket >= 0.10.0",
-],
+]
 
 setup(
     name="midl2impacket",
