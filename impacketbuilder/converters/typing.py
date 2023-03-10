@@ -1,3 +1,4 @@
+import typing
 from impacketbuilder.ndrbuilder.base import PythonValue
 from impacketbuilder.ndrbuilder.python import PythonAssignment, PythonName
 import re
@@ -88,7 +89,7 @@ class TypeMappingException(Exception):
 class PythonTypeAssociation:
     """A datatype that holds Python variable names"""
 
-    def __init__(self, raw_names: list[str]):
+    def __init__(self, raw_names: typing.List[str]):
         self.raw_names = raw_names
 
     def add_mapping(self, idl_name):
@@ -173,7 +174,7 @@ class TypeMapper:
 
     def canonicalize(
         self, name: str, array_size: str = None, is_func_param=False
-    ) -> tuple[str, str]:
+    ) -> typing.Tuple[str, str]:
         """Canonicalizes an IDL typename into the Python typename format"""
 
         # Strip const and spaces
@@ -212,7 +213,7 @@ class TypeMapper:
 
     def get_python_array_type(
         self, idl_type: str, array_size: str, is_func_param=False, array_prefix:str=''
-    ) -> tuple[str, str, bool]:
+    ) -> typing.Tuple[str, str, bool]:
         """Returns the array type name, the member name, and whether the type exists
 
         Args:
@@ -230,7 +231,7 @@ class TypeMapper:
         py_array_name = array_prefix + py_array_name
         return py_array_name, py_member_name, (py_array_name in self.types)
 
-    def get_python_type(self, idl_type: str, is_func_param=False) -> tuple[str, bool]:
+    def get_python_type(self, idl_type: str, is_func_param=False) -> typing.Tuple[str, bool]:
         """Returns python-friendly names for IDL names, along with a boolean indicating whether the
            data structure for the type exists or not.
 

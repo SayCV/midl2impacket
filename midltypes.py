@@ -1,3 +1,4 @@
+import typing
 from base import Visitable
 import enum
 
@@ -297,8 +298,8 @@ class MidlVarDef(Visitable):
         self,
         var_type,
         name,
-        attributes: dict[str, MidlAttribute] = None,
-        array_info: list[MidlArrayDimensions] = None,
+        attributes: typing.Dict[str, MidlAttribute] = None,
+        array_info: typing.List[MidlArrayDimensions] = None,
     ):
         self.type = var_type
         self.name = name
@@ -325,7 +326,7 @@ class MidlTypeDef(Visitable):
 
 
 class MidlStructDef(Visitable):
-    def __init__(self, public_names, private_name, members: list[MidlVarDef]):
+    def __init__(self, public_names, private_name, members: typing.List[MidlVarDef]):
         self.public_names = public_names
         self.private_name = private_name
         self.members = members
@@ -350,7 +351,7 @@ class MidlStructDef(Visitable):
 
 
 class MidlUnionDef(Visitable):
-    def __init__(self, public_names, private_name, members: list[MidlVarDef]):
+    def __init__(self, public_names, private_name, members: typing.List[MidlVarDef]):
         self.public_names = public_names
         self.private_name = private_name or ""
         self.members = members
@@ -438,7 +439,7 @@ class MidlProcedure(Visitable):
         `
     """
 
-    def __init__(self, name, attributes, params: list[MidlVarDef] = None):
+    def __init__(self, name, attributes, params: typing.List[MidlVarDef] = None):
         self.name = name
         self.attributes = attributes or {}
         self.params = params
@@ -459,7 +460,7 @@ class MidlProcedure(Visitable):
 
 class MidlParameter(Visitable):
     def __init__(
-        self, name=None, data_type=None, attributes: dict[str:MidlAttribute] = None
+        self, name=None, data_type=None, attributes: typing.Dict[str, MidlAttribute] = None
     ):
         self.name = name
         self.type = data_type

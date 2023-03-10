@@ -1,3 +1,4 @@
+import typing
 from impacketbuilder.converters.vardef import VarDefConverter
 from impacketbuilder.ndrbuilder.ndr import PythonNdrCall
 from impacketbuilder.ndrbuilder.python import PythonFunction, PythonTuple
@@ -48,7 +49,7 @@ class MidlProcedureConverter(Converter):
                 outputs.append(param)
         return inputs, outputs
 
-    def generate_helper(self, procedure: MidlProcedure, input_list: list[PythonTuple]):
+    def generate_helper(self, procedure: MidlProcedure, input_list: typing.List[PythonTuple]):
         arguments = ['dce']
         assignments = []
         for input_tup in input_list:

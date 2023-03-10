@@ -1,4 +1,5 @@
 import enum
+import typing
 from midlparser.parsers.expression import MidlExpressionParser
 
 from midltypes import MidlAttribute, SizeIsAttribute
@@ -117,7 +118,7 @@ class MidlAttributesParser(MidlBaseParser):
     def default(self, attribute: MidlAttribute):
         return attribute
 
-    def finished(self) -> dict[str:MidlAttribute]:
+    def finished(self) -> typing.Dict[str, MidlAttribute]:
         if len(self.attributes) == 0:
             raise MidlParserException("No attributes were parsed")
         # Post-process attributes

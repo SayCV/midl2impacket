@@ -1,3 +1,4 @@
+import typing
 from impacketbuilder.ndrbuilder.base import PythonDef, PythonDefList, PythonValue
 
 """This module contains data structures that represent various Python constructs."""
@@ -30,7 +31,7 @@ class PythonNameList(PythonDefList):
 class PythonTuple(PythonValue):
     """Python tuple implementation"""
 
-    def __init__(self, values: list[PythonValue]):
+    def __init__(self, values: typing.List[PythonValue]):
         if not isinstance(values, list):
             assert isinstance(values, PythonValue)
             values = [values]
@@ -121,7 +122,7 @@ class PythonFunction(PythonDef):
         self,
         name: str,
         args: str,
-        body: list[str],
+        body: typing.List[str],
         decorator: str = None,
         return_type: str = None,
     ):

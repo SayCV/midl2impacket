@@ -1,4 +1,5 @@
 import pathlib
+import typing
 from midlparser import parse_idl
 from midltypes import MidlImport
 from .base import Converter
@@ -6,7 +7,7 @@ from .comments import MidlCommentWriter
 
 
 class MidlImportsConverter(Converter):
-    def convert(self, imports: list[MidlImport], import_dir: str, def_converter):
+    def convert(self, imports: typing.List[MidlImport], import_dir: str, def_converter):
         comment_writer = MidlCommentWriter(self.io, self.tab_level)
         for _import in imports:
             comment_writer = MidlCommentWriter(self.io, self.tab_level)

@@ -1,4 +1,5 @@
 import enum
+import typing
 
 from midltypes import MidlAttribute
 from midlparser.parsers.base import MidlBaseParser, MidlParserException
@@ -62,7 +63,7 @@ class MidlExpressionParser(MidlBaseParser):
         else:
             self.invalid(token)
 
-    def finished(self) -> list[MidlAttribute]:
+    def finished(self) -> typing.List[MidlAttribute]:
         if len(self.expression_parts) == 0:
             raise MidlParserException("Empty expression?")
         return " ".join(self.expression_parts)

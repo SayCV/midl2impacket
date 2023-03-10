@@ -1,4 +1,5 @@
 import enum
+import typing
 
 from midltypes import MidlSimpleTypedef, MidlTypeDef
 from midlparser.parsers.attributes import MidlAttributesParser
@@ -119,7 +120,7 @@ class MidlTypedefParser(MidlBaseParser):
                     MidlSimpleTypedef(additional_name, td_type, self.attributes)
                 )
 
-    def finished(self) -> list[MidlTypeDef]:
+    def finished(self) -> typing.List[MidlTypeDef]:
         """parsing loop"""
         if not len(self.tds):
             raise MidlParserException(f"No typedefs were created.")

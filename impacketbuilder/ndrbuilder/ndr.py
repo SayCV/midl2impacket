@@ -1,3 +1,4 @@
+import typing
 from impacketbuilder.ndrbuilder.python import (
     PythonAssignment,
     PythonAssignmentList,
@@ -33,7 +34,7 @@ class PythonNdrClassDefiniton:
             name="__init__", args="self, *args, **kwargs", body=func_body_parts
         )
 
-    def generate_prop_methods(self, props: PythonTuple) -> list[PythonFunction]:
+    def generate_prop_methods(self, props: PythonTuple) -> typing.List[PythonFunction]:
         prop_methods = []
         for prop in props.values:
             prop_name = prop.values[0].value[1:-1]

@@ -6,7 +6,7 @@ from midlparser.tokenizer import MidlTokenizer
 
 
 def parse_idl(idl_file: pathlib.Path):
-    data = idl_file.read_text()
+    data = idl_file.read_text(encoding='utf-8', errors='ignore')
     if not data:
         raise MidlParserException(f"File `{idl_file}` is empty")
     tokenizer = MidlTokenizer(data, idl_file.name)
