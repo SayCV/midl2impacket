@@ -25,12 +25,12 @@ def preprocess_directory(
         if not out:
             raise MidlPreprocessorException(f"Error processing {idl_file}: {out}")
         else:
-            out_str = out.decode("utf-8")
+            out_str = out.decode("utf-8", errors='ignore')
             cur_lines = []
             for line in out_str.splitlines():
                 if line := line.rstrip():
                     cur_lines.append(line)
-            output_file.write_text("\n".join(cur_lines))
+            output_file.write_text("\n".join(cur_lines), encoding='utf-8', errors='ignore')
 
 
 def main():

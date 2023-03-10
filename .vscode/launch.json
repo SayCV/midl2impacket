@@ -43,6 +43,29 @@
             ]
         },
         {
+            "name": "IDL Test2",
+            "type": "python",
+            "request": "launch",
+            "program": "test_idl.py",
+            "console": "integratedTerminal",
+            //"args":[
+            //    "--in-file", "\"preprocessed/ms-wkst.idl\"",
+            //    "--out-file", "\"generated/ms-wkst.py\"",
+            //    "--import-dir", "\"preprocessed/\""
+            //]
+        },
+        {
+            "name": "IDL Test3",
+            "type": "python",
+            "request": "launch",
+            "program": "idl_fix.py",
+            "console": "integratedTerminal",
+            "args":[
+                "--in-dir", "\"unprocessed/\"",
+                "--out-dir", "\"unprocessed/\"",
+            ]
+        },
+        {
             "name": "Run EVEN Fuzzer",
             "type": "python",
             "request": "launch",

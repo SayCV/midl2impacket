@@ -46,6 +46,7 @@ class MidlParser(MidlBaseParser):
         self.cur_def_attrs = {}
         self.kw_handlers = {
             "import": self._import,
+            "importlib": self._import,
             "typedef": self._typedef,
             "enum": self._enum,
             "midl_pragma": self._midl_pragma,

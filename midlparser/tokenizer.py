@@ -124,6 +124,7 @@ class MidlTokenizer:
                 to_yield = Token(s, TokenType.NUMERIC)
             else:
                 raise Exception(f"Unhandled character {cur_char}")
+            
             self.ptr += 1
             assert (
                 to_yield is not None
@@ -291,7 +292,7 @@ class MidlTokenizer:
             comment_offset = 1
 
         comment = self.midl[self.ptr : comment_end].strip()
-        self.ptr = comment_end + comment_offset
+        self.ptr = comment_end + comment_offset - 1
         return comment
 
     def get_keyword_or_symbol(self):
