@@ -7,7 +7,7 @@ if sys.version_info < (3, 0):
 
 import re
 
-VERSIONFILE = "_version.py"
+VERSIONFILE = "midl2impacket/_version.py"
 verstrline = open(VERSIONFILE, "rt").read()
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
 mo = re.search(VSRE, verstrline, re.M)
@@ -18,10 +18,10 @@ else:
 
 entry_points = {
     'console_scripts': [
-        "midl2impacket = midl2impacket:main",
-        "idlpp = idl_preprocessor:main",
-        "idl_scraper = idl_scraper:main",
-        "idlfix = idl_fix:main",
+        "midl2impacket = midl2impacket.midl2impacket:main",
+        "idlpp = midl2impacket.idl_preprocessor:main",
+        "idl_scraper = midl2impacket.idl_scraper:main",
+        "idlfix = midl2impacket.idl_fix:main",
     ],
 }
 
