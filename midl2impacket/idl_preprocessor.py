@@ -1,7 +1,13 @@
 import argparse
+import logging
 import pathlib
 import shlex
 import subprocess
+import sys
+
+logging.basicConfig(style="{", format="[{levelname:<7}] {message}", level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 class MidlPreprocessorException(Exception):
@@ -14,6 +20,9 @@ def preprocess_directory(
     pp_bin: pathlib.Path,
     pp_args: str,
 ):
+    if sum(1 for _ in input_dir.glob('*.idl')) == 0:
+        logger.error("No *.idl found in the provided directory")
+        sys.exit(1)
     for idl_file in input_dir.glob("*.idl"):
         pp_cmd = f"{pp_bin.as_posix()} {pp_args} {idl_file.as_posix()}"
         print(pp_cmd)

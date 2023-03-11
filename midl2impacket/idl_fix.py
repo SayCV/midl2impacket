@@ -2,6 +2,9 @@ import argparse
 import logging
 import pathlib
 import re
+import sys
+
+from midl2impacket.util import get_encoding
 
 logging.basicConfig(style="{", format="[{levelname:<7}] {message}", level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -9,12 +12,6 @@ logger.setLevel(logging.INFO)
 
 class MidlPreprocessorException(Exception):
     pass
-
-def get_encoding(filename):
-    import chardet
-    with open(filename, "rb") as f:
-        res = chardet.detect(f.read())
-    return res['encoding']
 
 def add_idl_comment(match_obj):
     prefix = '//'
@@ -27,6 +24,9 @@ def preprocess_directory(
     input_dir: pathlib.Path,
     output_dir: pathlib.Path
 ):
+    if sum(1 for _ in input_dir.glob('*.idl')) == 0:
+        logger.error("No *.idl found in the provided directory")
+        sys.exit(1)
     for idl_file in input_dir.glob("*.idl"):
         pp_cmd = f"fix {idl_file.as_posix()}"
         logger.debug(pp_cmd)

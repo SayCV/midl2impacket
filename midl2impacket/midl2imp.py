@@ -60,8 +60,7 @@ def generate(in_file, out_file, import_dir):
     generated_code = generate_impacket(midl_def, import_dir)
     generated_template, uuid = generate_template(midl_def, import_dir)
     template_out = pathlib.Path(f"generated_fuzzers/{uuid}.py")
-    if not template_out.parent.exists():
-        template_out.parent.mkdir()
+    template_out.parent.mkdir(exist_ok=True)
 
     template_out.write_text(generated_template)
     out_file.write_text(generated_code)

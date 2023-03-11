@@ -26,14 +26,14 @@
             "name": "IDL Scraper",
             "type": "python",
             "request": "launch",
-            "program": "idl_scraper.py",
+            "program": "midl2impacket/idl_scraper.py",
             "console": "integratedTerminal",
         },
         {
             "name": "IDL Test",
             "type": "python",
             "request": "launch",
-            "program": "midl2impacket.py",
+            "program": "midl2impacket/midl2imp.py",
             "console": "integratedTerminal",
             "args":[
                 "--in-file", "\"preprocessed/ms-wkst.idl\"",
@@ -58,7 +58,7 @@
             "name": "IDL Test3",
             "type": "python",
             "request": "launch",
-            "program": "idl_fix.py",
+            "program": "midl2impacket/idl_fix.py",
             "console": "integratedTerminal",
             "args":[
                 "--in-dir", "\"unprocessed/\"",
@@ -69,7 +69,7 @@
             "name": "Run EVEN Fuzzer",
             "type": "python",
             "request": "launch",
-            "program": "fuzzer.py",
+            "program": "midl2impacket/fuzzer.py",
             "console": "integratedTerminal",
             "args":[
                 "--idl", "\"preprocessed/ms-even.idl\"",
@@ -83,7 +83,7 @@
             "name": "Run EVEN6 Fuzzer",
             "type": "python",
             "request": "launch",
-            "program": "fuzzer.py",
+            "program": "midl2impacket/fuzzer.py",
             "console": "integratedTerminal",
             "args":[
                 "--idl", "\"preprocessed/ms-even6.idl\"",
@@ -97,7 +97,7 @@
             "name": "Run RPRN Fuzzer",
             "type": "python",
             "request": "launch",
-            "program": "fuzzer.py",
+            "program": "midl2impacket/fuzzer.py",
             "console": "integratedTerminal",
             "args":[
                 "--idl", "\"preprocessed/ms-rprn.idl\"",

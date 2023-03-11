@@ -19,20 +19,21 @@ class MidlStaticConverter(Converter):
     def base_imports(self):
         imports = """
 # pylint: disable=C0103,C0302,W0614
-from __future__ import division
-from __future__ import print_function
-from impacket.dcerpc.v5.ndr import *
-from fuzzer.impacket_overrides import *
-from fuzzer.base import NDRINTERFACE
-from impacket.dcerpc.v5.dtypes import *
-from impacket.dcerpc.v5.lsad import PRPC_UNICODE_STRING_ARRAY
-from impacket.structure import Structure
-from impacket import nt_errors
-from impacket.dcerpc.v5.dtypes import STR, LPSTR, WSTR, LPWSTR
-from impacket.uuid import uuidtup_to_bin
-from impacket.dcerpc.v5.rpcrt import DCERPCException
+from __future__ import division, print_function
 
-from impacket import system_errors
+from impacket import nt_errors, system_errors
+from impacket.dcerpc.v5.dtypes import *
+from impacket.dcerpc.v5.dtypes import LPSTR, LPWSTR, STR, WSTR
+from impacket.dcerpc.v5.lsad import PRPC_UNICODE_STRING_ARRAY
+from impacket.dcerpc.v5.ndr import *
+from impacket.dcerpc.v5.rpcrt import DCERPCException
+from impacket.structure import Structure
+from impacket.uuid import uuidtup_to_bin
+
+from midl2impacket.fuzzer.base import NDRINTERFACE
+from midl2impacket.fuzzer.impacket_overrides import *
+
+
 class DCERPCSessionError(DCERPCException):
     def __init__(self, error_string=None, error_code=None, packet=None):
         DCERPCException.__init__(self, error_string, error_code, packet)

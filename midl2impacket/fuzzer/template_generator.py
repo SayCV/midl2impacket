@@ -18,8 +18,9 @@ class FuzzerTemplateGenerator:
         self.generated_classes = {}
         self.mapper = TypeMapper(None)
         self.static_imports = """
-from midl2impacket.fuzzer.midl import *
 from midl2impacket.fuzzer.core import *
+from midl2impacket.fuzzer.midl import *
+
 """
     def gen_class(self,name, members):
         clz = f"""
