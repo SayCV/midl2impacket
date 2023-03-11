@@ -1,9 +1,9 @@
-from impacketbuilder.converters.typing import CONTEXT_HANDLE
-import impacket.dcerpc.v5.ndr
 import impacket.dcerpc.v5.dtypes
+import impacket.dcerpc.v5.ndr
+from impacketbuilder.converters.typing import CONTEXT_HANDLE
 
-from .core import MethodInvocation
 from .basic import *
+from .core import MethodInvocation
 
 """This file overrides the default impacket classes for the purposes of fuzzing, but still implements the same functionality
 

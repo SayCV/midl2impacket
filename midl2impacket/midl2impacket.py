@@ -1,8 +1,8 @@
 import argparse
 import pathlib
 
-from midl2impacket.fuzzer.template_generator import FuzzerTemplateGenerator
 from midl2impacket import midltypes
+from midl2impacket.fuzzer.template_generator import FuzzerTemplateGenerator
 from midl2impacket.impacketbuilder import ImpacketBuilder
 from midl2impacket.midlparser import parse_idl
 

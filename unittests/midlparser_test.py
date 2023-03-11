@@ -1,5 +1,6 @@
 import pathlib
-from midlparser import parse_idl
+
+from midl2impacket.midlparser import parse_idl
 
 
 def test_full():

@@ -1,7 +1,7 @@
 import enum
 import typing
 
-from base import Visitable
+from .base import Visitable
 
 
 class MidlImport:

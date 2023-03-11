@@ -1,14 +1,15 @@
-from generated.ms_rprn import *
-
-
-from impacket.dcerpc.v5 import  epm
-from impacket.dcerpc.v5.rpcrt import RPC_C_AUTHN_LEVEL_PKT_PRIVACY, RPC_C_AUTHN_GSS_NEGOTIATE, DCERPCException
+from impacket.dcerpc.v5 import epm
+from impacket.dcerpc.v5.rpcrt import (RPC_C_AUTHN_GSS_NEGOTIATE,
+                                      RPC_C_AUTHN_LEVEL_PKT_PRIVACY,
+                                      DCERPCException)
 from impacket.dcerpc.v5.transport import DCERPCTransportFactory
+
+from generated.ms_rprn import *
 
 try:
     stringBinding = epm.hept_map('localhost', uuidtup_to_bin(('12345678-1234-ABCD-EF00-0123456789AB', '1.0')))
 except impacket.dcerpc.v5.rpcrt.DCERPCException:
-    from fuzzer.epm import get_mapping
+    from midl2impacket.fuzzer.epm import get_mapping
     stringBinding = get_mapping('12345678-1234-ABCD-EF00-0123456789AB', 'localhost')
 rpctransport = DCERPCTransportFactory(stringBinding)
 rpctransport.set_credentials('m', 'password', '', '', '')

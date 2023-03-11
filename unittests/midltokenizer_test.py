@@ -1,7 +1,7 @@
 import nose
 from nose.tools import with_setup
 
-from midlparser.tokenizer import *
+from midl2impacket.midlparser.tokenizer import *
 
 Tokenizer = MidlTokenizer
 

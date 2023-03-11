@@ -1,2 +1,2 @@
-include preprocessed/*.idl
-include scraped/*.idl
+include midl2impacket/preprocessed/*.idl
+include midl2impacket/scraped/*.idl

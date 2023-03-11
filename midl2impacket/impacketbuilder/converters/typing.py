@@ -2,12 +2,11 @@ import re
 import typing
 
 from impacket.dcerpc.v5.dtypes import LPSTR, LPWSTR, STR, WSTR
-from impacket.dcerpc.v5.ndr import (NDRBOOLEAN, NDRDOUBLEFLOAT,
-                                                  NDRFLOAT, NDRHYPER, NDRLONG,
-                                                  NDRPOINTERNULL, NDRSHORT,
-                                                  NDRSMALL, NDRUHYPER,
-                                                  NDRULONG, NDRUSHORT,
-                                                  NDRUSMALL, NULL)
+from impacket.dcerpc.v5.ndr import (NDRBOOLEAN, NDRDOUBLEFLOAT, NDRFLOAT,
+                                    NDRHYPER, NDRLONG, NDRPOINTERNULL,
+                                    NDRSHORT, NDRSMALL, NDRUHYPER, NDRULONG,
+                                    NDRUSHORT, NDRUSMALL, NULL)
+
 from midl2impacket.impacketbuilder.ndrbuilder.base import PythonValue
 from midl2impacket.impacketbuilder.ndrbuilder.io import PythonWriter
 from midl2impacket.impacketbuilder.ndrbuilder.ndr import PythonNdrPointer

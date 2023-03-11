@@ -1,7 +1,8 @@
 import pathlib
-from midlparser import parse_idl
-from impacketbuilder import ImpacketBuilder
 import traceback
+
+from midl2impacket.impacketbuilder import ImpacketBuilder
+from midl2impacket.midlparser import parse_idl
 
 
 def generate_impacket(midl_def, import_dir: str):
