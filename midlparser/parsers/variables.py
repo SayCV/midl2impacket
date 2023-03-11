@@ -112,7 +112,7 @@ class MidlVariableInstantiationParser(MidlBaseParser):
             VariableInstantiationState.TYPE_ARRAY,
         ]:
             # There's no value for this.. Might just be a forward declaration?
-            if "interface" in self.type_parts:
+            if "interface" in self.type_parts or "dispinterface" in self.type_parts:
                 self.state = VariableInstantiationState.END
             else:
                 self.invalid(token)

@@ -10,7 +10,7 @@ from midlparser.parsers.libraries import MidlLibraryParser
 from midlparser.parsers.typedefs import MidlTypedefParser
 from midlparser.parsers.util import SkipClosureParser
 from midlparser.parsers.variables import MidlVariableInstantiationParser
-from midlparser.tokenizer import Token
+from midlparser.tokenizer import Token, TokenType
 
 from midltypes import MidlDefinition
 
@@ -20,6 +20,7 @@ class MidlState(enum.Enum):
 
     DEFAULT = enum.auto()
     IMPORT = enum.auto()
+    IMPORTLIB = enum.auto()
     IMPORT_COMPLETE = enum.auto()
     DEF_COMPLETE = enum.auto()
     MIDL_PRAGMA = enum.auto()
@@ -46,7 +47,7 @@ class MidlParser(MidlBaseParser):
         self.cur_def_attrs = {}
         self.kw_handlers = {
             "import": self._import,
-            "importlib": self._import,
+            "importlib": self._importlib,
             "typedef": self._typedef,
             "enum": self._enum,
             "midl_pragma": self._midl_pragma,
@@ -66,6 +67,9 @@ class MidlParser(MidlBaseParser):
 
     def _import(self, _):
         self.state = MidlState.IMPORT
+
+    def _importlib(self, _):
+        self.state = MidlState.IMPORTLIB
 
     def _typedef(self, token: Token):
         self.definition.typedefs.extend(
@@ -135,6 +139,17 @@ class MidlParser(MidlBaseParser):
         if self.state == MidlState.IMPORT:
             # Encountered an import statement so add it to the definition's imports
             self.definition.add_import(token.data[1:-1])
+            self.state = MidlState.DEF_COMPLETE
+        else:
+            self.invalid(token)
+
+    def rbracket(self, token: Token):
+        if self.state == MidlState.IMPORTLIB:
+            import_token = next(self.tokens)
+            assert import_token.type == TokenType.STRING
+            self.definition.add_import(token.data[1:-1])
+            assert next(self.tokens).type == TokenType.RBRACKET
+            #assert next(self.tokens).type == TokenType.SEMICOLON
             self.state = MidlState.DEF_COMPLETE
         else:
             self.invalid(token)

@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-generated/
 
 # C extensions
 *.so
@@ -141,3 +140,7 @@ cython_debug/
 .vscode/
 
 /.*.cmd
+
+/generated
+/generated_fuzzers
+/unprocessed

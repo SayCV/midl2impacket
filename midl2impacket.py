@@ -54,8 +54,7 @@ def generate(in_file, out_file, import_dir):
     if not out_file:
         out_file = in_file.with_suffix(".impacket.py")
     out_file = pathlib.Path(out_file)
-    if not out_file.parent.exists():
-        out_file.parent.mkdir()
+    out_file.parent.mkdir(exist_ok=True)
 
     midl_def = parse_idl(in_file)
     generated_code = generate_impacket(midl_def, import_dir)

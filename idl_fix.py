@@ -1,7 +1,11 @@
 import argparse
+import logging
 import pathlib
 import re
 
+logging.basicConfig(style="{", format="[{levelname:<7}] {message}", level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 class MidlPreprocessorException(Exception):
     pass
@@ -25,7 +29,7 @@ def preprocess_directory(
 ):
     for idl_file in input_dir.glob("*.idl"):
         pp_cmd = f"fix {idl_file.as_posix()}"
-        print(pp_cmd)
+        logger.debug(pp_cmd)
         output_file = output_dir / idl_file.name
 
         data: str = idl_file.read_text(encoding=get_encoding(idl_file), errors='ignore')
@@ -37,6 +41,8 @@ def preprocess_directory(
         mc1 = 0
         mc2 = 0
         mc3 = 0
+        mc4 = 0
+        library_start = 0
         lines = []
         for line in data.split('\n'):
             pattern = u'(^\s*importlib\("[.\w]+"\);\s?)'
@@ -57,12 +63,31 @@ def preprocess_directory(
                 mc3 += 1 # len( re.compile(pattern).findall(line) )
                 line = re.sub(p_obj, u')]', line)
 
+            pattern = u'(^library \w+$)'
+            p_obj = re.compile(pattern)
+            if p_obj.search(line):
+                library_start = 1
+                mc4 += 1 # len( re.compile(pattern).findall(line) )
+                line = re.sub(p_obj, add_idl_comment, line)
+
+            if library_start == 1 and line == '{':
+                library_start = 2
+                line = '//' + line
+
+            if library_start == 2 and line == '};':
+                mc4 += 1
+                line = '//' + line
+
             lines.append(line)
 
-        print(f'Matched found total : {mc1 + mc2 + mc3}, pattern 1 found {mc1}, pattern 2 found {mc2}, pattern 3 found {mc3}')
+        logger.info(f'Changed total places: {mc1 + mc2 + mc3 + mc4}')
+        logger.debug(f'----> pattern 1 found {mc1}')
+        logger.debug(f'----> pattern 2 found {mc2}')
+        logger.debug(f'----> pattern 3 found {mc3}')
+        logger.debug(f'----> pattern 4 found {mc4}')
 
         output_file.write_text('\n'.join(lines), encoding='utf-8', errors='ignore')
-        pass
+        logger.info(f'Done.')
 
 def main():
     parser = argparse.ArgumentParser()

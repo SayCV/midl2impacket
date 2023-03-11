@@ -200,6 +200,7 @@ class MidlLibrary(Visitable):
         self.attributes = attributes or []
         self.members = members or []
         self.comments = []
+        self.imports = []
 
     def __str__(self):
         out = f"library {self.name}\n"
