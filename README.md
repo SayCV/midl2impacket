@@ -6,7 +6,7 @@ MIDL2Impacket is a converter that takes a MIDL RPC definition and creates an Imp
 * An IDL scraper that pulls IDL files from MSDN `idl_scraper.py`
 * An IDL preprocessor (requires MSVC) that applies macros to a given IDL file `idl_preprocessor.py`
 
-## install
+## Install
 
 ```batch
 
@@ -16,7 +16,13 @@ pip install git+https://github.com/saycv/midl2impacket@dev#egg=midl2impacket
 
 ## Usage
 
-`python .\midl2impacket.py --in-file=[IDL FILENAME] --out-file=[PYTHON OUTPUT] --import-dir=[dir]`
+```batch
+
+idlfix --in-dir unprocessed/ --out-dir processed/
+
+midl2impacket --in-file=processed/demo1.IDL --out-file=generated/demo1.py --import-dir=preprocessed/
+
+```
 
 Since some IDL files need to resolve imports, include the directory where it can find them.
 
