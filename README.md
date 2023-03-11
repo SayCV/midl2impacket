@@ -20,7 +20,7 @@ pip install git+https://github.com/saycv/midl2impacket@dev#egg=midl2impacket
 
 idlfix --in-dir unprocessed/ --out-dir processed/
 
-midl2impacket --in-file=processed/demo1.IDL --out-file=generated/demo1.py --import-dir=preprocessed/
+midl2imp --in-file=processed/demo1.IDL --out-file=generated/demo1.py --import-dir=preprocessed/
 
 ```
 

@@ -18,7 +18,7 @@ else:
 
 entry_points = {
     'console_scripts': [
-        "midl2impacket = midl2impacket.midl2imp:main",
+        "midl2imp = midl2impacket.midl2imp:main",
         "idlpp = midl2impacket.idl_preprocessor:main",
         "idl_scraper = midl2impacket.idl_scraper:main",
         "idlfix = midl2impacket.idl_fix:main",
