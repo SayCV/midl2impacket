@@ -6,8 +6,8 @@ def main():
     in_file1 = 'preprocessed/ms-wkst.idl'
     out_file1 = 'generated/ms-wkst.py'
 
-    in_file2 = 'unprocessed/powerpcb.IDL'
-    out_file2 = 'generated/powerpcb.py'
+    in_file2 = 'unprocessed/demo1.IDL'
+    out_file2 = 'generated/demo1.py'
 
     import_dir = "preprocessed/"
 
