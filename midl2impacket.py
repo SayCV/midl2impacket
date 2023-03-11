@@ -54,11 +54,16 @@ def generate(in_file, out_file, import_dir):
     if not out_file:
         out_file = in_file.with_suffix(".impacket.py")
     out_file = pathlib.Path(out_file)
+    if not out_file.parent.exists():
+        out_file.parent.mkdir()
 
     midl_def = parse_idl(in_file)
     generated_code = generate_impacket(midl_def, import_dir)
     generated_template, uuid = generate_template(midl_def, import_dir)
     template_out = pathlib.Path(f"generated_fuzzers/{uuid}.py")
+    if not template_out.parent.exists():
+        template_out.parent.mkdir()
+
     template_out.write_text(generated_template)
     out_file.write_text(generated_code)
 

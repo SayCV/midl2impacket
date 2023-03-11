@@ -1,23 +1,22 @@
-import re
 import argparse
 import pathlib
+import re
+
 
 class MidlPreprocessorException(Exception):
     pass
 
-global matched1_count
-global matched2_count
+def get_encoding(filename):
+    import chardet
+    with open(filename, "rb") as f:
+        res = chardet.detect(f.read())
+    return res['encoding']
+
 def add_idl_comment(match_obj):
-    global matched1_count
-    global matched2_count
     prefix = '//'
     ret = ''
     if match_obj.group(1) is not None:
-        matched1_count += 1
         ret = prefix + match_obj.group(1)
-    if match_obj.group(2) is not None:
-        matched2_count += 1
-        ret = prefix + match_obj.group(2)
     return ret
 
 def preprocess_directory(
@@ -29,19 +28,40 @@ def preprocess_directory(
         print(pp_cmd)
         output_file = output_dir / idl_file.name
 
-        data: str = idl_file.read_text(encoding='utf-8', errors='ignore')
+        data: str = idl_file.read_text(encoding=get_encoding(idl_file), errors='ignore')
         if not data:
             raise MidlPreprocessorException(f"File `{idl_file}` is empty")
+        
+        global mc1
+        global mc2
+        mc1 = 0
+        mc2 = 0
+        mc3 = 0
+        lines = []
+        for line in data.split('\n'):
+            pattern = u'(^\s*importlib\("[.\w]+"\);\s?)'
+            p_obj = re.compile(pattern)
+            if p_obj.search(line):
+                mc1 += 1 # len( re.compile(pattern).findall(line) )
+                line = re.sub(p_obj, add_idl_comment, line)
 
-        pattern = r'^(\S*importlib\(".*.tlb"\);\s*) | (^\S*[a-zA-Z]{,4}interface \w*;\s*)'
-        global matched1_count
-        global matched2_count
-        matched1_count = 0
-        matched2_count = 0
-        data = re.sub(pattern, add_idl_comment, data)
-        print(f'Matched found total : {matched1_count + matched2_count}, pattern 1 found {matched1_count}, pattern 2 found {matched2_count}')
+            pattern = u'(^\s*[disp]{,4}interface\s\w+;\s?)'
+            p_obj = re.compile(pattern)
+            if p_obj.search(line):
+                mc2 += 1 # len( re.compile(pattern).findall(line) )
+                line = re.sub(p_obj, add_idl_comment, line)
 
-        output_file.write_text(data, encoding='utf-8', errors='ignore')
+            pattern = u'(\)public\])'
+            p_obj = re.compile(pattern)
+            if p_obj.search(line):
+                mc3 += 1 # len( re.compile(pattern).findall(line) )
+                line = re.sub(p_obj, u')]', line)
+
+            lines.append(line)
+
+        print(f'Matched found total : {mc1 + mc2 + mc3}, pattern 1 found {mc1}, pattern 2 found {mc2}, pattern 3 found {mc3}')
+
+        output_file.write_text('\n'.join(lines), encoding='utf-8', errors='ignore')
         pass
 
 def main():
