@@ -20,7 +20,7 @@ entry_points = {
     'console_scripts': [
         "midl2imp = midl2impacket.midl2imp:main",
         "idlpp = midl2impacket.idl_preprocessor:main",
-        "idl_scraper = midl2impacket.idl_scraper:main",
+        "idlscr = midl2impacket.idl_scraper:main",
         "idlfix = midl2impacket.idl_fix:main",
     ],
 }

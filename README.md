@@ -2,7 +2,7 @@
 
 MIDL2Impacket is a converter that takes a MIDL RPC definition and creates an Impacket RPC Python client. This project has 3 different components:
 
-* A the actual MIDL to Impacket RPC converter `midl2impacket.py`
+* A the actual MIDL to Impacket RPC converter `midl2imp.py`
 * An IDL scraper that pulls IDL files from MSDN `idl_scraper.py`
 * An IDL preprocessor (requires MSVC) that applies macros to a given IDL file `idl_preprocessor.py`
 
@@ -17,6 +17,8 @@ pip install git+https://github.com/saycv/midl2impacket@dev#egg=midl2impacket
 ## Usage
 
 ```batch
+
+idlscr --in-dir unprocessed/ --out-dir processed/
 
 idlfix --in-dir unprocessed/ --out-dir processed/
 
