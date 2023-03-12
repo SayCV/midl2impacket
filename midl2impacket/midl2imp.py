@@ -1,10 +1,15 @@
 import argparse
+import logging
 import pathlib
 
 from midl2impacket import midltypes
 from midl2impacket.fuzzer.template_generator import FuzzerTemplateGenerator
 from midl2impacket.impacketbuilder import ImpacketBuilder
 from midl2impacket.midlparser import parse_idl
+
+logging.basicConfig(style="{", format="[{levelname:<7}] {message}", level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 def generate_impacket(midl_def: midltypes.MidlDefinition, import_dir: str):
@@ -46,7 +51,7 @@ def main():
 
 
 def generate(in_file, out_file, import_dir):
-    print(f"Parsing {in_file}")
+    logger.info(f"Parsing {in_file}")
     in_file = pathlib.Path(in_file)
     if not in_file.exists():
         raise Exception(f"Provided input file {in_file} does not exist.")
@@ -63,7 +68,9 @@ def generate(in_file, out_file, import_dir):
     template_out.parent.mkdir(exist_ok=True)
 
     template_out.write_text(generated_template)
+    logger.info(f'{template_out} done.')
     out_file.write_text(generated_code)
+    logger.info(f'{out_file} done.')
 
 
 if __name__ == "__main__":

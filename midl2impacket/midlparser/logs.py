@@ -5,7 +5,7 @@ import pathlib
 LIMIT_1_MB = 1024 * 256 * 1
 LOG_DIR = pathlib.Path(__file__).parent / "logs"
 INITIALIZED = False
-DEFAULT_LEVEL = logging.INFO
+DEFAULT_LEVEL = logging.ERROR
 
 
 class ColorFormatter(logging.Formatter):
