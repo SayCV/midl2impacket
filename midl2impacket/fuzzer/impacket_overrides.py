@@ -1,6 +1,6 @@
 import impacket.dcerpc.v5.dtypes
 import impacket.dcerpc.v5.ndr
-from impacketbuilder.converters.typing import CONTEXT_HANDLE
+from midl2impacket.impacketbuilder.converters.typing import CONTEXT_HANDLE
 
 from .basic import *
 from .core import MethodInvocation

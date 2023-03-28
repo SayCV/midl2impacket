@@ -41,6 +41,8 @@ class MidlInterfaceConverter(Converter):
         interface_names = [interface.name.upper()]
         interface_names.extend([parent.upper() for parent in interface.parents])
         for interface_name in interface_names:
+            if 'IPOWERPCBDOC' in f"{interface.name.upper()}":
+                print(interface.name)
             if not self.mapper.exists(interface_name):
                 clz = PythonClass(
                     PythonName(f"{interface.name.upper()}"),

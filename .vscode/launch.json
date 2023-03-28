@@ -5,10 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Parse All IDLs",
+            "name": "Test Current File",
             "type": "python",
             "request": "launch",
-            "program": "unittests/midlparser_test.py",
+            //"program": "${fileDirname}/${fileBasenameNoExtension}.py",
+            "program": "${file}",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "env": {"PYTHONPATH": "${workspaceFolder}${pathSeparator}${env:PYTHONPATH}"}
@@ -23,39 +24,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}${pathSeparator}${env:PYTHONPATH}"}
         },
         {
-            "name": "IDL Scraper",
+            "name": "Test IDL Scraper",
             "type": "python",
             "request": "launch",
             "program": "midl2impacket/idl_scraper.py",
             "console": "integratedTerminal",
         },
         {
-            "name": "IDL Test",
-            "type": "python",
-            "request": "launch",
-            "program": "midl2impacket/midl2imp.py",
-            "console": "integratedTerminal",
-            "args":[
-                "--in-file", "\"preprocessed/ms-wkst.idl\"",
-                "--out-file", "\"generated/ms-wkst.py\"",
-                "--import-dir", "\"preprocessed/\""
-
-            ]
-        },
-        {
-            "name": "IDL Test2",
-            "type": "python",
-            "request": "launch",
-            "program": "test_idl.py",
-            "console": "integratedTerminal",
-            //"args":[
-            //    "--in-file", "\"preprocessed/ms-wkst.idl\"",
-            //    "--out-file", "\"generated/ms-wkst.py\"",
-            //    "--import-dir", "\"preprocessed/\""
-            //]
-        },
-        {
-            "name": "IDL Test3",
+            "name": "Step1 IDL Fix",
             "type": "python",
             "request": "launch",
             "program": "midl2impacket/idl_fix.py",
@@ -66,15 +42,41 @@
             ]
         },
         {
+            "name": "Step2 IDL Preprocessor",
+            "type": "python",
+            "request": "launch",
+            "program": "midl2impacket/idl_preprocessor.py",
+            "console": "integratedTerminal",
+            "env": {"PATH": "D:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin;D:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/x86_amd64;${env:PATH}"},
+            "args":[
+                "--pp", "\"cl\"",
+                "--args", "/EP",
+                "--in-dir", "\"unprocessed/\"",
+                "--out-dir", "\"processed/\""
+            ]
+        },
+        {
+            "name": "Step3 IDL2IMP",
+            "type": "python",
+            "request": "launch",
+            "program": "test_wrapper.py",
+            "console": "integratedTerminal",
+            "args":[
+                "--in-file", "\"processed/demo1.idl\"",
+                "--out-file", "\"generated/demo1.py\"",
+                "--import-dir", "\"midl2impacket/preprocessed/\""
+            ]
+        },
+        {
             "name": "Run EVEN Fuzzer",
             "type": "python",
             "request": "launch",
             "program": "midl2impacket/fuzzer.py",
             "console": "integratedTerminal",
             "args":[
-                "--idl", "\"preprocessed/ms-even.idl\"",
+                "--idl", "\"midl2impacket/preprocessed/ms-even.idl\"",
                 "--out-dir", "\"generated/\"",
-                "--import-dir", "\"preprocessed/\"",
+                "--import-dir", "\"midl2impacket/preprocessed/\"",
                 "--count", "1",
 
             ]

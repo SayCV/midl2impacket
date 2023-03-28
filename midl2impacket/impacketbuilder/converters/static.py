@@ -11,7 +11,7 @@ class MidlStaticConverter(Converter):
     def convert(self):
         if not self.HAS_RUN:
             comment_writer = MidlCommentWriter(self.io, self.tab_level)
-            comment_writer.comment_block("Generated from MIDL2Impacket.py")
+            comment_writer.comment_block("Generated from midl2imp.py")
             self.base_imports()
             self.type_mapping()
             self.HAS_RUN = True
@@ -57,6 +57,7 @@ OLESTR = WSTR
 LPOLESTR = LPWSTR
 REFIID = IID
 DATE = DOUBLE
+VARIANT = WSTR
 VARIANT_BOOL = USHORT
 
 class CONTEXT_HANDLE(NDRSTRUCT):

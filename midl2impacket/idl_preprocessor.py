@@ -1,5 +1,6 @@
 import argparse
 import logging
+import os
 import pathlib
 import shlex
 import subprocess
@@ -25,6 +26,7 @@ def preprocess_directory(
         sys.exit(1)
     for idl_file in input_dir.glob("*.idl"):
         pp_cmd = f"{pp_bin.as_posix()} {pp_args} {idl_file.as_posix()}"
+        #print(os.environ.get('PATH'))
         print(pp_cmd)
         output_file = output_dir / idl_file.name
         pp_proc = subprocess.Popen(
@@ -78,7 +80,7 @@ def main():
     pp_bin = pathlib.Path(args.pp)
     if not pp_bin.exists() and pp_bin.is_file():
         raise MidlPreprocessorException(
-            f"Provided preprocessor doesn't exist or isn't a file!"
+            "Provided preprocessor doesn't exist or isn't a file!"
         )
 
     preprocess_directory(input_dir, output_dir, pp_bin, args.args)
